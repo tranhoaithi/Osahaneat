@@ -17,6 +17,8 @@ public class Food {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String description;
+
     @Column(name = "title")
     private String title;
 

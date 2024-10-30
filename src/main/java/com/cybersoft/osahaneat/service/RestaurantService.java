@@ -7,6 +7,7 @@ import com.cybersoft.osahaneat.entity.*;
 import com.cybersoft.osahaneat.repository.RestaurantRepository;
 import com.cybersoft.osahaneat.service.imp.FileStorageServiceImp;
 import com.cybersoft.osahaneat.service.imp.RestaurantServiceImp;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +26,8 @@ public class RestaurantService implements RestaurantServiceImp {
     @Autowired
     RestaurantRepository restaurantRepository;
 
+    Logger logger = org.slf4j.LoggerFactory.getLogger(RestaurantService.class);
+
     @Autowired
     FileStorageServiceImp fileStorageService;
     @Override
@@ -36,6 +39,7 @@ public class RestaurantService implements RestaurantServiceImp {
         List<RestaurantDTO> restaurantDTOs = new ArrayList<>();
         for (Restaurant restaurant : restaurants) {
             RestaurantDTO restaurantDTO = new RestaurantDTO();
+            restaurantDTO.setId(restaurant.getId());
             restaurantDTO.setAddress(restaurant.getAddress());
             restaurantDTO.setFreeship(restaurant.isFreeship());
             restaurantDTO.setImage(restaurant.getImage());
@@ -97,6 +101,7 @@ public class RestaurantService implements RestaurantServiceImp {
         restaurantDTO.setSubtitle(restaurant.getSubtitle());
         restaurantDTO.setRating(calculateRating(restaurant.getListRatingRestaurant()));
         restaurantDTO.setOpenDate(restaurant.getOpenDate());
+        restaurantDTO.setDesc(restaurant.getDesc());
 
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
         for (MenuRestaurant menuRestaurant : restaurant.getListMenuRestaurant()) {
@@ -110,6 +115,7 @@ public class RestaurantService implements RestaurantServiceImp {
                 foodDTO.setPrice(food.getPrice());
                 foodDTO.setImage(food.getImage());
                 foodDTO.setFreeship(food.isFreeship());
+                foodDTO.setDescription(food.getDescription());
                 foodDTOList.add(foodDTO);
             }
             categoryDTO.setFoods(foodDTOList);

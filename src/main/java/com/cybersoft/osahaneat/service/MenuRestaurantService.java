@@ -2,6 +2,7 @@ package com.cybersoft.osahaneat.service;
 
 import com.cybersoft.osahaneat.entity.MenuRestaurant;
 import com.cybersoft.osahaneat.entity.keys.KeyMenuRestaurant;
+import com.cybersoft.osahaneat.exception.CustomServiceException;
 import com.cybersoft.osahaneat.repository.MenuRestaurantRepository;
 import com.cybersoft.osahaneat.service.imp.MenuRestaurantServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,7 @@ public class MenuRestaurantService implements MenuRestaurantServiceImp {
             MenuRestaurant menuRestaurant = new MenuRestaurant();
 
             // set create date
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            Date date = dateFormat.parse(new Date().toString());
+            Date date = new Date();
             menuRestaurant.setCreateDate(date);
 
             // set key
@@ -38,7 +38,7 @@ public class MenuRestaurantService implements MenuRestaurantServiceImp {
 
             isInserted = true;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new CustomServiceException("Error creating MenuRestaurant", e);
         }
         return isInserted;
     }

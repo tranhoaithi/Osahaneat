@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FoodDTO {
 
+    private String description;
     private String title;
     private String image;
     private String timeShip;
